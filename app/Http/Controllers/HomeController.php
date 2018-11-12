@@ -54,6 +54,9 @@ class HomeController extends Controller
             ->groupby('ciudad')
             ->pluck('ciudad','nconsult');
 
+        dump($array_date);
+        dump($array_city);
+
         [$values, $names] = array_divide($array_date);
         $graph= (object)['ejex' => $names, 'ejey'=> $values];
 

@@ -12,21 +12,21 @@ class BotellasLicor extends Migration
      */
     public function up()
     {
-        Schema::create('alc_botellaslicor', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('tipo');
-            $table->string('descripcion');
-            $table->biginteger('codigo_qr');
-            $table->string('marca');
-            $table->biginteger('codigo_b');
-            $table->integer('n_consultas');
-            $table->integer('id_tapa')->unsigned();
-            $table->foreign('id_tapa')
-                  ->references('id')
-                  ->on('alc_tapabotellaslicor')
-                  ->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('alc_botellaslicor', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('tipo');
+        //     $table->string('descripcion');
+        //     $table->biginteger('codigo_qr');
+        //     $table->string('marca');
+        //     $table->biginteger('codigo_b');
+        //     $table->integer('n_consultas');
+        //     $table->integer('id_tapa')->unsigned();
+        //     $table->foreign('id_tapa')
+        //           ->references('id')
+        //           ->on('alc_tapabotellaslicor')
+        //           ->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**

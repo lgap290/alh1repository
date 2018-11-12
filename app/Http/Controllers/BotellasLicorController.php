@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\BotellaLicor;
 use App\TapaBotellaLicor;
+use App\Consulta;
 
 class BotellasLicorController extends Controller
 {
@@ -23,9 +24,17 @@ class BotellasLicorController extends Controller
 			$datares = array('Result'=>"404");
    			return json_encode($datares);
    		}
+		// Crear consulta
+		$consulta = new Consulta;
+		$consulta->id_botella = $codigo_bar;
+		$consulta->ciudad = "Bogota";
+		$consulta->detalle = "";
+		$consulta->save();
+
 		$botellalicor->n_consultas++;
-                $botellalicor->save();
-                $tapabotella=$botellalicor->tapa->fecha_abierta;
+		$botellalicor->save();
+		
+		$tapabotella = $botellalicor->tapa->fecha_abierta;
 		$datares = array( 'Result'=>"200", 'botella'=>$botellalicor, 'tapa'=>$tapabotella);
    		return json_encode($datares);
 	}
@@ -36,7 +45,6 @@ class BotellasLicorController extends Controller
 	}
 
 	public function store(Request $request) {
- 	
 
 		$botellalicor = new BotellaLicor;
 		$tapabotellalicor = new TapaBotellaLicor;

@@ -36,9 +36,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $total_hoy = DB::table('alc_botellaslicor')
+        $total_hoy = DB::table('alc_consultas')
             ->where('created_at', '>=', Carbon::today())
-            ->sum('n_consultas');
+            ->count();
         $total = DB::table('alc_botellaslicor')
             ->sum('n_consultas');
         return view('home', ['total'=>$total, 'total_hoy'=>$total_hoy]);

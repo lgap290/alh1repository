@@ -13,8 +13,8 @@
                                 <th>Tipo</th>
                                 <th>Descripción</th>
                                 <th>Marca</th>
-                                <th>Codigo Barras</th>
-                                <th>Codigo Tapa</th>
+                                <th>Codigo</th>
+                                {{-- <th>Codigo Tapa</th> --}}
                                 <th>Estado</th>
                                 <th>N Consultas</th>
                             </tr>
@@ -26,7 +26,7 @@
                             <td>{{$botellalicor->descripcion}}</td>
                             <td>{{$botellalicor->marca}}</td>
                             <td>{{$botellalicor->codigo_b}}</td>
-                            <td>{{$botellalicor->tapa->codigo_qr}}</td>
+                            {{-- <td>{{$botellalicor->tapa->codigo_qr}}</td> --}}
                             @if($botellalicor->tapa->fecha_abierta!='0000-00-00 00:00:00')
                             <td class="text-success bg-success">Abierta</td>
                             @else

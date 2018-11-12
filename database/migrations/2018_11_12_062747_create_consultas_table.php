@@ -12,7 +12,14 @@ class CreateConsultasTable extends Migration
      */
     public function up()
     {
-        //
+        // Create table consultas
+        Schema::create('alc_consultas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_botella')->unsigned();
+            $table->string('ciudad');
+            $table->string('detalle');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,5 +30,6 @@ class CreateConsultasTable extends Migration
     public function down()
     {
         //
+        Schema::drop('alc_consultas');
     }
 }

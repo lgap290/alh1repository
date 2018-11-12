@@ -16,4 +16,8 @@ class BotellaLicor extends Model
     {
         return $this->hasOne('App\TapaBotellaLicor', 'id', 'id_tapa'); 
     }
+    public function consulta()
+    {
+        return $this->hasMany('App\Consulta', 'id', 'id_botella'); 
+    }
 }

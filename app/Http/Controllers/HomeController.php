@@ -41,7 +41,25 @@ class HomeController extends Controller
             ->count();
         $total = DB::table('alc_botellaslicor')
             ->sum('n_consultas');
-        return view('home', ['total'=>$total, 'total_hoy'=>$total_hoy]);
+
+        $array_date = DB::table('alc_consultas')
+            ->select(DB::raw('count(id) as `nconsult`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+            ->where('created_at', '>=', Carbon::now()->subMonths(6))
+            ->groupby('year','month')
+            ->pluck('new_date','nconsult');
+
+        $array_city = DB::table('alc_consultas')
+            ->select(DB::raw('count(id) as `nconsult`, ciudad'))
+            ->where('created_at', '>=', Carbon::now()->subMonths(6))
+            ->groupby('ciudad')
+            ->pluck('ciudad','nconsult');
+
+        [$values, $names] = array_divide($array_date);
+        $graph= (object)['ejex' => $names, 'ejey'=> $values];
+
+        [$values2, $names2] = array_divide($array_city);
+        $graph2= (object)['ejex' => $names2, 'ejey'=> $values2];
+        return view('home', ['total'=>$total, 'total_hoy'=>$total_hoy, 'graph'=> $graph, 'graph2'=> $graph2]);
     }
 
     public function chartjs()

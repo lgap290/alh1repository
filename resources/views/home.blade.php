@@ -6,6 +6,7 @@
 
 
 @section('main-content')
+
 	<div class="container spark-screen">
 		<div class="row">
 			<div class="col-md-5 col-sm-5 col-xs-10">
@@ -40,26 +41,34 @@
 			<div class="clearfix visible-sm-block"></div>
 		
 		</div>
+				
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-6">
 			  <p class="text-center">
-				<strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+				<strong>Consultas: Mayo, 2018 a Hoy</strong>
 			  </p>
 
 			  <div class="chart">
-				<!-- Sales Chart Canvas -->
-				<canvas id="salesChart" style="height: 180px; width: 647px;" width="647" height="180"></canvas>
+					<!-- Sales Chart Canvas -->
+					<canvas id="salesChart" style="height: 180px; width: 647px;" width="647" height="180"></canvas>
+			  </div>
+
+			  <div class="chart">
+					<!-- Sales Chart Canvas -->
+					<canvas id="salesChart2" style="height: 180px; width: 647px;" width="647" height="180"></canvas>
 			  </div>
 			  <!-- /.chart-responsive -->
 			</div>
+
+
 			<!-- /.col -->
 			<div class="col-md-4">
 			  <p class="text-center">
-				<strong>Goal Completion</strong>
+					<strong>Metas</strong>
 			  </p>
 
 			  <div class="progress-group">
-				<span class="progress-text">Add Products to Cart</span>
+				<span class="progress-text">Producto mas consultado: Whiskey</span>
 				<span class="progress-number"><b>160</b>/200</span>
 
 				<div class="progress sm">
@@ -68,7 +77,7 @@
 			  </div>
 			  <!-- /.progress-group -->
 			  <div class="progress-group">
-				<span class="progress-text">Complete Purchase</span>
+				<span class="progress-text">Producto mas Vendido: Aguardiente</span>
 				<span class="progress-number"><b>310</b>/400</span>
 
 				<div class="progress sm">
@@ -77,26 +86,69 @@
 			  </div>
 			  <!-- /.progress-group -->
 			  <div class="progress-group">
-				<span class="progress-text">Visit Premium Page</span>
+				<span class="progress-text">Ciudad Mas consultada: Bogota</span>
 				<span class="progress-number"><b>480</b>/800</span>
 
 				<div class="progress sm">
 				  <div class="progress-bar progress-bar-green" style="width: 80%"></div>
 				</div>
 			  </div>
-			  <!-- /.progress-group -->
-			  <div class="progress-group">
-				<span class="progress-text">Send Inquiries</span>
-				<span class="progress-number"><b>250</b>/500</span>
-
-				<div class="progress sm">
-				  <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-				</div>
-			  </div>
-			  <!-- /.progress-group -->
 			</div>
 			<!-- /.col -->
-		  </div>
+			</div>
+			<script>
+				var ctx = document.getElementById("salesChart");
+				var salesChart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: ["Mayo", "Junio", "Julio", "Agosto","Septiembre", "Octubre", "Noviembre"],
+						datasets: [{
+							label: 'Fecha',
+							data: {{json_encode($graph->ejey)}},
+							borderWidth: .3,
+							borderColor: 'rgba(219, 32, 26, 1)'
+						}]
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+										beginAtZero:true
+								}
+							}]
+						},
+						title: {
+							display: true,
+							text: 'Por Mes'
+						}
+					}
+				});
+				var ctx2 = document.getElementById("salesChart2");
+				var salesChart2 = new Chart(ctx2, {
+					type: 'bar',
+					data: {
+						labels: ["Bogota", "Boyaca", "Cali", "Medellín"],
+						datasets: [{
+							label: 'Consultas',
+							data: {{json_encode($graph2->ejey)}},
+							borderWidth: .3
+						}]
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+										beginAtZero:true
+								}
+							}]
+						},
+						title: {
+							display: true,
+							text: 'Por ciudad'
+						}
+					}
+				});
+			</script>
 	</div>
 	
 @endsection

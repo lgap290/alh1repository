@@ -26,3 +26,10 @@ Route::get('/productos/{id}', 'BotellasLicorController@show');
 
 Route::resource('tapa', 'TapaBotellasLicor',
 	['only' => ['update']]);
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

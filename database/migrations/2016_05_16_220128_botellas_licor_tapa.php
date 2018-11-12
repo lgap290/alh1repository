@@ -15,7 +15,7 @@ class BotellasLicorTapa extends Migration
         Schema::create('alc_tapabotellaslicor', function (Blueprint $table) {
             $table->increments('id');
             $table->biginteger('codigo_qr');
-            $table->date_time('fecha_abierta');
+            $table->date('fecha_abierta');
             $table->timestamps();
         });
     }

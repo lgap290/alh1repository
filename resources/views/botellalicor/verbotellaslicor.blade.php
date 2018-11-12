@@ -1,17 +1,10 @@
-@extends('layouts/app')
+@extends('layouts.app')
 
-@section('content')
-<div class="container">
+@section('main-content')
+<div class="container spark-screen">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-10">
             <div class="panel panel-default">
-                <div class="panel-heading">                
-                    <ul class="nav nav-tabs">
-                        <li><a href="{{ url('inicio') }}">Inicio</a></li>
-                        <li class="active"><a href="{{ url('productos') }}">Productos</a></li>
-                        <li><a href="{{ url('productos/create') }}">Ingresar Producto</a></li>
-                    </ul>
-                </div>
                 <div class="panel-body">
                 <p class="text-info bg-info">{{$respuestaenvio}}</p>                
                     <table class="table table-hover">
@@ -39,7 +32,7 @@
                             @else
                             <td class="text-danger bg-danger">En venta</td>
                             @endif
-                            <td align="center">{{$botellalicor->n_consultas}}</td>
+                            <td>{{$botellalicor->n_consultas}}</td>
                         </tr>
                         @endforeach
                         </tbody>

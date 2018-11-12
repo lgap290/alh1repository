@@ -41,7 +41,7 @@ class BotellasLicorController extends Controller
 		$botellalicor = new BotellaLicor;
 		$tapabotellalicor = new TapaBotellaLicor;
 
-		$tapabotellalicor->codigo_qr = $request->codigo_qrtapa;
+		$tapabotellalicor->codigo_qr = $request->codigo_b;
 		$tapabotellalicor->save();
 
 		$botellalicor->tipo =$request->tipo;

@@ -12,12 +12,12 @@ class BotellasLicorTapa extends Migration
      */
     public function up()
     {
-        Schema::create('alc_tapabotellaslicor', function (Blueprint $table) {
-            $table->increments('id');
-            $table->biginteger('codigo_qr');
-            $table->date('fecha_abierta');
-            $table->timestamps();
-        });
+        // Schema::create('alc_tapabotellaslicor', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->biginteger('codigo_qr');
+        //     $table->date('fecha_abierta');
+        //     $table->timestamps();
+        // });
     }
     /**
      * Reverse the migrations.

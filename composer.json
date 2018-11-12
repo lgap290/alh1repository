@@ -10,7 +10,8 @@
         "fzaninotto/faker": "^1.6",
         "nesbot/carbon": "^1.21",
         "laravelcollective/bus": "5.2.*",
-        "twbs/bootstrap": "^3.3"
+        "twbs/bootstrap": "^3.3",
+        "acacha/admin-lte-template-laravel": "2.*"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

@@ -35,8 +35,41 @@ class BotellasLicorController extends Controller
 		$botellalicor->save();
 		
 		$tapabotella = $botellalicor->tapa->fecha_abierta;
-		$datares = array( 'Result'=>"200", 'botella'=>$botellalicor, 'tapa'=>$tapabotella);
-   		return json_encode($datares);
+		$image = '/img/siva/products/aguardiente_blanco.jpg';
+		if($botellalicor->tipo == "Blanco del Valle"){
+			$image = '/img/siva/products/aguardiente_blanco.jpg';
+		}else if($botellalicor->tipo == "Ron Marqués del Valle 8 años"){
+			$image = '/img/siva/products/ron_marquez.jpg';
+		}else if($botellalicor->tipo == "Aguardiente Origen"){
+			$image = '/img/siva/products/aguardiente_origen.png';
+		}else if($botellalicor->tipo == "Aguardiente Blanco Sin Azúcar"){
+			$image = '/img/siva/products/aguardiente.jpg';
+		}else if($botellalicor->tipo == "Ron Premium"){
+			$image = '/img/siva/products/ron_premium.png';
+		}else if($botellalicor->tipo == "Aguardiente Antioqueño"){
+			$image = '/img/siva/products/aguardiente_antioqueno.jpg';
+		}else if($botellalicor->tipo == "Aguardiente Antioqueño Sin Azúcar"){
+			$image = '/img/siva/products/aguardiente_antioqueno_sin_azucar.jpg';
+		}else if($botellalicor->tipo == "Aguardiente Real"){
+			$image = '/img/siva/products/aguardiente_real.jpg';
+		}else if($botellalicor->tipo == "Ron Medellín 10 años"){
+			$image = '/img/siva/products/ron_medellin_10.png';
+		}else if($botellalicor->tipo == "Ron Medellin Añejo 3 años x 750ml"){
+			$image = '/img/siva/products/ron_medellin_3x750.png';
+		}else if($botellalicor->tipo == "Ron Medellin Añejo 12 años x 750ml"){
+			$image = '/img/siva/products/ron_medellin_12x750.png';
+		}else{
+			$image = '/img/siva/products/pulgar_arriba.jpg';
+		}
+		
+		$datares = array( 
+			'Result'=>"200",
+			'botella'=>$botellalicor,
+			'tapa'=>$tapabotella,
+			'image'=>asset($image)
+		);
+
+   		return json_encode($datares, JSON_UNESCAPED_SLASHES);
 	}
 
 	public function create() {

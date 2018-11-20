@@ -5,7 +5,7 @@
             <img alt='Disponible en Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/es-419_badge_web_generic.png' width="200"/>
         </a>
         <a href='#'>
-            <img alt='Disponible en AppStore' src='https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-alternate.png' width="200"/>
+            <img alt='Disponible en AppStore' src='https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-alternate.png' width="160"/>
         </a>
     </div>
 

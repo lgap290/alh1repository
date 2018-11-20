@@ -46,23 +46,23 @@ class HomeController extends Controller
             ->select(DB::raw('count(id) as `nconsult`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
             ->groupby('year','month')
-            ->pluck('new_date','nconsult');
+            ->pluck('nconsult');
 
         $array_city = DB::table('alc_consultas')
             ->select(DB::raw('count(id) as `nconsult`, ciudad'))
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
             ->groupby('ciudad')
-            ->pluck('ciudad','nconsult');
+            ->pluck('nconsult');
 
-        dump($array_date);
-        dump($array_city);
+        //dump($array_date);
+        //dump($array_city);
 
-        [$values, $names] = array_divide($array_date);
-        $graph= (object)['ejex' => $names, 'ejey'=> $values];
+        //[$values, $names] = array_divide($array_date);
+        $graph= (object)['ejex' => [], 'ejey'=> $array_date];
 
-        [$values2, $names2] = array_divide($array_city);
-        $graph2= (object)['ejex' => $names2, 'ejey'=> $values2];
-        return view('home', ['total'=>$total, 'total_hoy'=>$total_hoy, 'graph'=> $graph, 'graph2'=> $graph2]);
+        //[$values2, $names2] = array_divide($array_city);
+        $graph2= (object)['ejex' => [], 'ejey'=> $array_city];
+        return view('home', ['total'=>$total, 'total_hoy'=>$total_hoy, 'graph'=>$graph, 'graph2'=>$graph2]);
     }
 
     public function chartjs()

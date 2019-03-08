@@ -55,6 +55,8 @@ class HomeController extends Controller
             ->pluck('ciudad','nconsult');
 
         [$values, $names] = array_divide($array_date);
+        $names = json_encode($names);
+        
         $graph= (object)['ejex' => $names, 'ejey'=> $values];
 
         [$values2, $names2] = array_divide($array_city);

@@ -3,6 +3,9 @@
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
+use App\BotellaLicor;
+use App\Consulta;
+
 class ConsultasSeeder extends Seeder
 {
     /**
@@ -17,13 +20,21 @@ class ConsultasSeeder extends Seeder
 
         $faker = Faker::create();
 
-    	for($i=0;$i<3456;$i++){
+    	for($i=0;$i<20;$i++){
+            $codigo_bar = $faker->randomElement($codigos);
+            $botellalicor = BotellaLicor::whereCodigo_b($codigo_bar)->first();
+            
+            $consulta = new Consulta;
+            $consulta->id_botella = $codigo_bar;
+            $consulta->ciudad = $faker->randomElement($citys);
+            $consulta->detalle = "";
+            $consulta->created_at = $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'yesterday');
+            $consulta->save();
 
-            DB::table('alc_consultas')->insert([
-                'id_botella' => $faker->randomElement($codigos),
-                'ciudad' => $faker->randomElement($citys),
-                'created_at'=> $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'yesterday')
-            ]);
+            $botellalicor->n_consultas++;
+            $botellalicor->save();
+            $botellalicor = BotellaLicor::whereCodigo_b($codigo_bar)->first();
+
         }
     }
 }

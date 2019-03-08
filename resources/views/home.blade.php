@@ -101,7 +101,7 @@
 				var salesChart = new Chart(ctx, {
 					type: 'line',
 					data: {
-						labels: ["Mayo", "Junio", "Julio", "Agosto","Septiembre", "Octubre", "Noviembre"],
+						labels: ["Septiembre","Octubre","Noviembre", "Diciembre", "Enero", "Febrero", "Marzo"] ,
 						datasets: [{
 							label: 'Fecha',
 							data: {{json_encode($graph->ejey)}},
@@ -150,5 +150,6 @@
 				});
 			</script>
 	</div>
+
 	
 @endsection

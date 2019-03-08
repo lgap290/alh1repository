@@ -54,10 +54,10 @@ class HomeController extends Controller
             ->groupby('ciudad')
             ->pluck('nconsult');
 
-        [$values, $names] = array_divide($array_date);
-        $names = json_encode($names);
+        //[$values, $names] = array_divide($array_date);
+        // $names = json_encode($names);
         
-        $graph= (object)['ejex' => $names, 'ejey'=> $values];
+        //$graph= (object)['ejex' => [], 'ejey'=> $values];
 
         //[$values, $names] = array_divide($array_date);
         $graph= (object)['ejex' => [], 'ejey'=> $array_date];

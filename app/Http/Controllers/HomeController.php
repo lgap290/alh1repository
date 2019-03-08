@@ -62,10 +62,37 @@ class HomeController extends Controller
             ->groupby('ciudad')
             ->pluck('nconsult');
 
-        //[$values, $names] = array_divide($array_date);
-        // $names = json_encode($names);
+        //Consultas mayor producto consultado
+        $product_best = DB::table('alc_botellaslicor')
+            ->select(DB::raw('marca, sum(n_consultas) as total'))
+            ->groupby('marca')
+            ->orderBy("total", 'desc')
+            ->first();
+
+        $product_best->porcentaje = ($product_best->total*100)/$total_consultas;
+
+        //Consultas mayor producto en produccion
+        $product_max = DB::table('alc_botellaslicor')
+            ->select(DB::raw('marca, count(marca) as total'))
+            ->groupby('marca')
+            ->orderBy("total", 'desc')
+            ->first();
+
+        $product_max->porcentaje = ($product_best->total*100)/$total_productos;
+
+        //Consultas por mayor ciudad
+        $ciudad_max = DB::table('alc_consultas')
+            ->select(DB::raw('ciudad, count(ciudad) as total'))
+            ->groupby('ciudad')
+            ->orderBy("total", 'desc')
+            ->first();
+
+        $ciudad_max->porcentaje = ($ciudad_max->total*100)/$total_consultas;
+
+        //print(json_encode($product_max));
+        // [$values, $names] = array_divide($array_date);
         
-        //$graph= (object)['ejex' => [], 'ejey'=> $values];
+        // $graph= (object)['ejex' => $names, 'ejey'=> $values];
 
         //[$values, $names] = array_divide($array_date);
         $graph= (object)['ejex' => [], 'ejey'=> $array_date];

@@ -36,35 +36,79 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //Consultas ultimos 6 meses por fecha
+        $total_productos = DB::table('alc_botellaslicor')
+            ->count();
+
+        //Consultas hoy
         $total_hoy = DB::table('alc_consultas')
             ->where('created_at', '>=', Carbon::today())
             ->count();
-        $total = DB::table('alc_botellaslicor')
+
+        //Consultas total
+        $total_consultas = DB::table('alc_botellaslicor')
             ->sum('n_consultas');
 
+        //Consultas ultimos 6 meses por fecha
         $array_date = DB::table('alc_consultas')
             ->select(DB::raw('count(id) as `nconsult`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
             ->groupby('year','month')
             ->pluck('nconsult');
 
+        //Consultas ultimos 6 meses por ciudad
         $array_city = DB::table('alc_consultas')
             ->select(DB::raw('count(id) as `nconsult`, ciudad'))
-            ->where('created_at', '>=', Carbon::now()->subMonths(6))
             ->groupby('ciudad')
             ->pluck('nconsult');
 
-        [$values, $names] = array_divide($array_date);
-        $names = json_encode($names);
+        //Consultas mayor producto consultado
+        $product_best = DB::table('alc_botellaslicor')
+            ->select(DB::raw('marca, sum(n_consultas) as total'))
+            ->groupby('marca')
+            ->orderBy("total", 'desc')
+            ->first();
+
+        $product_best->porcentaje = ($product_best->total*100)/$total_consultas;
+
+        //Consultas mayor producto en produccion
+        $product_max = DB::table('alc_botellaslicor')
+            ->select(DB::raw('marca, count(marca) as total'))
+            ->groupby('marca')
+            ->orderBy("total", 'desc')
+            ->first();
+
+        $product_max->porcentaje = ($product_best->total*100)/$total_productos;
+
+        //Consultas por mayor ciudad
+        $ciudad_max = DB::table('alc_consultas')
+            ->select(DB::raw('ciudad, count(ciudad) as total'))
+            ->groupby('ciudad')
+            ->orderBy("total", 'desc')
+            ->first();
+
+        $ciudad_max->porcentaje = ($ciudad_max->total*100)/$total_consultas;
+
+        //print(json_encode($product_max));
+        // [$values, $names] = array_divide($array_date);
         
-        $graph= (object)['ejex' => $names, 'ejey'=> $values];
+        // $graph= (object)['ejex' => $names, 'ejey'=> $values];
 
         //[$values, $names] = array_divide($array_date);
         $graph= (object)['ejex' => [], 'ejey'=> $array_date];
 
         //[$values2, $names2] = array_divide($array_city);
         $graph2= (object)['ejex' => [], 'ejey'=> $array_city];
-        return view('home', ['total'=>$total, 'total_hoy'=>$total_hoy, 'graph'=>$graph, 'graph2'=>$graph2]);
+        return view('home', [
+            'total_productos'=> $total_productos,
+            'total_consultas'=> $total_consultas, 
+            'total_hoy'=> $total_hoy, 
+            'graph'=> $graph, 
+            'graph2'=> $graph2,
+            'product_best'=> $product_best,
+            'product_max'=> $product_max,
+            'ciudad_max'=> $ciudad_max
+        ]);
     }
 
     public function chartjs()
